@@ -1,0 +1,16 @@
+# JDK
+oracleJdk-26/
+oracleJdk-25/
+
+# Maven
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
