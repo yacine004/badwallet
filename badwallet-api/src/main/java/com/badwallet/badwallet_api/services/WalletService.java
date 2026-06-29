@@ -5,6 +5,7 @@ import com.badwallet.badwallet_api.repository.WalletRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,7 +25,7 @@ public class WalletService {
     }
 
     public Page<Wallet> getAllWallets(int page, int size) {
-        return walletRepository.findAll(PageRequest.of(page, size));
+        return walletRepository.findAll(PageRequest.of(page, size, Sort.by("id").ascending()));
     }
 
     public Wallet getWalletByPhone(String phoneNumber) {
