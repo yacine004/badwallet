@@ -2,6 +2,10 @@ package com.badwallet.badwallet_api.views;
 
 import com.badwallet.badwallet_api.entity.Transaction;
 import com.badwallet.badwallet_api.entity.Wallet;
+<<<<<<< HEAD
+=======
+import com.badwallet.badwallet_api.services.PaymentClientService;
+>>>>>>> feature/payment-services
 import com.badwallet.badwallet_api.services.TransactionService;
 import com.badwallet.badwallet_api.services.WalletService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +23,10 @@ public class WalletController {
 
     private final WalletService walletService;
     private final TransactionService transactionService;
+<<<<<<< HEAD
+=======
+    private final PaymentClientService paymentClientService;
+>>>>>>> feature/payment-services
 
     // 1.2 Créer un wallet
     @PostMapping
@@ -73,9 +81,34 @@ public class WalletController {
         return ResponseEntity.ok(transactionService.transfer(senderPhone, receiverPhone, amount));
     }
 
+<<<<<<< HEAD
+=======
+    // 1.9 Payer facture du mois en cours
+    @PostMapping("/pay")
+    public ResponseEntity<String> pay(@RequestBody Map<String, Object> body) {
+        String phoneNumber = body.get("phoneNumber").toString();
+        String serviceName = body.get("serviceName").toString();
+        Double amount = Double.valueOf(body.get("amount").toString());
+        return ResponseEntity.ok(paymentClientService.payFactureMoisCourant(phoneNumber, serviceName, amount));
+    }
+
+    // 1.10 Payer factures spécifiques
+    @PostMapping("/pay-factures")
+    public ResponseEntity<String> payFactures(@RequestBody Map<String, Object> body) {
+        String phoneNumber = body.get("phoneNumber").toString();
+        String serviceName = body.get("serviceName").toString();
+        List<String> references = (List<String>) body.get("factureReferences");
+        return ResponseEntity.ok(paymentClientService.payFacturesParReferences(phoneNumber, serviceName, references));
+    }
+
+>>>>>>> feature/payment-services
     // 1.11 Historique des transactions
     @GetMapping("/{phoneNumber}/transactions")
     public ResponseEntity<List<Transaction>> getTransactions(@PathVariable String phoneNumber) {
         return ResponseEntity.ok(transactionService.getTransactions(phoneNumber));
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> feature/payment-services

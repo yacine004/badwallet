@@ -16,7 +16,6 @@ public class TransactionService {
     private final WalletRepository walletRepository;
     private final TransactionRepository transactionRepository;
 
-    // DEPOT
     public Wallet deposit(Long walletId, Double amount, String paymentMethod) {
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new RuntimeException("Wallet introuvable : " + walletId));
@@ -37,7 +36,6 @@ public class TransactionService {
         return wallet;
     }
 
-    // RETRAIT (frais 1%, plafonnés à 5000)
     public Wallet withdraw(String phoneNumber, Double amount) {
         Wallet wallet = walletRepository.findByPhoneNumber(phoneNumber)
                 .orElseThrow(() -> new RuntimeException("Wallet introuvable : " + phoneNumber));
@@ -65,7 +63,6 @@ public class TransactionService {
         return wallet;
     }
 
-    // TRANSFERT
     public String transfer(String senderPhone, String receiverPhone, Double amount) {
         Wallet sender = walletRepository.findByPhoneNumber(senderPhone)
                 .orElseThrow(() -> new RuntimeException("Wallet expéditeur introuvable : " + senderPhone));
@@ -94,7 +91,6 @@ public class TransactionService {
         return "Transfert de " + amount + " XOF effectué de " + senderPhone + " vers " + receiverPhone;
     }
 
-    // HISTORIQUE
     public List<Transaction> getTransactions(String phoneNumber) {
         return transactionRepository.findByWallet_PhoneNumber(phoneNumber);
     }
